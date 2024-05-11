@@ -1,35 +1,36 @@
-window.addEventListener('load', ()=>{
-	let long;
-	let lat;
-	let temperatureDescription = document.querySelector('.temp-discr');
-	let temperatureDegree = document.querySelector('.temp-degree');
-	let locationTimezone = document.querySelector('.location-timezone');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const ejs = require('ejs');
+const dataroutes = require('./routes/dataRoutes');
 
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(position=>{
-			long = position.coords.longitude;
-			lat = position.coords.latitude;
 
-			cost api = `/${lat},${long}`;//modifie the latitude and longtude
+const port = 3000;
+const ip = '127.0.0.1';
 
-			fetch(api)
-			.then(response =>{
-				return response.json();
-			})
-			.then(data=>{
-				//console.log(data);
-				const{temperature, summary, icon} = data.currently;
-				//Set dom elements from the api
-				temperatureDegree.textContent = temperature;
-				temperatureDescription.textContent = summary;
-				location-timezone.textContent = data.timezone;
-			})
-		});
 
-	}
+//view engine
+app.set('view engine', 'ejs');
 
-	fuction setIcons(icon, iconeID){
+//static files
+app.use(express.static('public'));
+app.use(express.static('views'));
 
-	}
+//body parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
+//routes 
+app.use(dataroutes);
+
+
+app.get('/', (req, res) => {
+	res.render('index');
+  
 });
+
+
+app.listen(port, ip, () => {
+    console.log(`Server is listening on http://${ip}:${port}`);
+});
+
