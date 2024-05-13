@@ -3,10 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const dataroutes = require('./routes/dataRoutes');
+const env = require('dotenv').config();
 
+const PORT = process.env.PORT;
+const HOST = process.env.HOST;
 
-const port = 3000;
-const ip = '127.0.0.1';
+//const port = 3000;
+//const ip = '127.0.0.1';
 
 
 //view engine
@@ -30,7 +33,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen(port, ip, () => {
-    console.log(`Server is listening on http://${ip}:${port}`);
+app.listen(PORT, HOST, () => {
+    console.log(`Server is listening on http://${HOST}:${PORT}`);
 });
 

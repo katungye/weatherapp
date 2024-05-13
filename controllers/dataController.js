@@ -13,11 +13,6 @@ const WEA_API_KEY = process.env.WEA_API_KEY;
 const WEA_API_URL = process.env.WEA_API_URL;
 
 //making the call to the APIs for the controller
-//const fetch = require('node-fetch');
-
-//Weather = https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-
-//Location = http://ip-api.com/json/
 
 
 const getweather = async (req, res) => {
@@ -29,7 +24,7 @@ const getweather = async (req, res) => {
         const weather_response = await fetch(`${WEA_API_URL}?lat=${lat}&lon=${lon}&appid=${WEA_API_KEY}`);
         const weather_data = await weather_response.json();
         res.send(weather_data);
-        console.log(weather_data);
+        //console.log(weather_data);
     }
     catch (err) {
         console.log(err);
